@@ -4,26 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teachable Machine Image Comparison</title>
-    <style>
-        #label-container {
-            height: 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="css/upload.css">
     </head>
 <body>
     <div>Teachable Machine Image Model</div>
-    <input type="file" accept="image/" class="real-upload">
-    <!-- <img id="imagePreview" style="height: 300px;" /> -->
-     <div class="upload"></div>
-     <ul class="image-preview"></ul>
-    <button type="button" onclick="init()">Start</button>
-    <input type="file" onchange="filePredict(this.files)" accept="image/">asdf</input>
+    <input type="file" onchange="filePredict(this.files)" accept="image/"></input>
     <div id="label-container"></div>
-
     <div><p id="percent"></p></div>
 
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
-    <script type="text/javascript" src="script.js" defer></script>
+    <script type="text/javascript" src="javascript/script.js" defer></script>
 </body>
 </html>
