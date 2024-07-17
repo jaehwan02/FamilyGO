@@ -70,12 +70,26 @@ async function predict(img) {
   const probability = (predictions[classIndex].probability * 100).toFixed(2);
   updateProgressBar(probability);
   showToastMessage(probability);
+
+  if (probability >= 80) {
+    // 일치율이 80% 이상일 경우 점수 추가
+    updateScore(1000);
+  }
 }
 
 function updateProgressBar(percentage) {
   const progressBar = document.getElementById('progress-bar');
   progressBar.style.width = percentage + '%';
   progressBar.innerText = percentage + '%';
+
+  if (percentage < 50) {
+    progressBar.style.backgroundColor = 'red';
+  } else if (percentage < 80) {
+    progressBar.style.backgroundColor = 'yellow';
+    progressBar.style.color = 'black'; // 글씨가 잘 보이도록
+  } else {
+    progressBar.style.backgroundColor = 'green';
+  }
 }
 
 function showToastMessage(percentage) {
@@ -94,4 +108,12 @@ function showToastMessage(percentage) {
   setTimeout(function () {
     toast.className = toast.className.replace('show', '');
   }, 3000);
+}
+
+// 점수 업데이트 함수
+function updateScore(points) {
+  let score = parseInt(localStorage.getItem('score')) || 0;
+  score += points;
+  localStorage.setItem('score', score);
+  parent.document.getElementById('real-coin').innerText = score;
 }
