@@ -104,7 +104,7 @@
         <input type="text" placeholder="NickName" class="membership" id="nickname" required>
         <div class="btndiv">
           <button type="submit" class="submitbtn">회원가입</button>
-          <button class="canclebtn">취소</button>
+          <button id="cancelbtn" onclick="cancel()">취소</button>
         </div>
       </form>
     </div>
@@ -154,7 +154,14 @@
             })
             .catch(error => console.error('Error:', error));
         });
-      
+        const modal1 = document.getElementById('modal1');
+        function cancel() {
+          var x = document.getElementsByClassName("membership");
+          for (var i = 0; i < x.length; i++) {
+            x[i].removeAttribute('required');
+          }
+          modal1.style.display = "none";
+        }
 
     </script>
 </body>

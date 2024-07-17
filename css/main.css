@@ -179,7 +179,7 @@ header>div {
   line-height: normal;
 }
 
-.canclebtn {
+#cancelbtn {
   display: inline-flex;
   padding: 14.957px 22.435px;
   justify-content: center;

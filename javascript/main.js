@@ -96,4 +96,9 @@ function doDisplay() {
 function modalOpen(){
   const modal = document.getElementById('modal1');
   modal.style.display = "flex";
+  console.log(modal.attributes)
+  var x = document.getElementsByClassName("membership");
+  for (var i = 0; i < x.length; i++) {
+    x[i].setAttribute('required', true);
+  }
 };

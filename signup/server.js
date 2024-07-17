@@ -18,7 +18,7 @@ const firebaseConfig = {
 
 const app = express();
 const port = 3000;
-const hostname = '127.0.0.1';
+const hostname = '10.150.149.128';
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
