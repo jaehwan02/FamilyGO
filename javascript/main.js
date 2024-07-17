@@ -91,6 +91,12 @@ function doDisplay() {
   }
 }
 
+// 초기 로드 시 점수를 로컬 스토리지에서 불러오기
+document.addEventListener('DOMContentLoaded', () => {
+  let score = localStorage.getItem('score') || 0;
+  document.getElementById('real-coin').innerText = score;
+});
+
 
 // 회원가입 모달창
 function modalOpen(){
