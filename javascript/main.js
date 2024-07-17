@@ -16,7 +16,7 @@ marker.setMap(map);
 
 var customOverlayContent = `
 <div class="modal">
-<img src="png/bssm.png" id="bssm2">
+<img src="png/bssm2.png" id="bssm2">
 <a href="upload.html" id="plus"><button id="bssm-button">+</button></a>
 <div popover id="my-popover">사진 업로드 하러 가기!</div>
 </div>
