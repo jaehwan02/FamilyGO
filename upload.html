@@ -7,165 +7,51 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
-    <style>
-      .container {
-        display: flex;
-        align-items: flex-start;
-      }
-
-      .thumbnails {
-        display: flex;
-        flex-direction: column;
-        margin-right: 20px;
-      }
-
-      .addImage,
-      .uploadImage {
-        width: 400px;
-        height: 300px;
-        background-color: lightgray;
-        border-radius: 20px 20px / 20px 20px;
-        overflow: hidden;
-        margin: 0px 10px 10px 0px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .thumbnail {
-        width: 100px;
-        height: 100px;
-        margin: 10px;
-        display: inline-block;
-        cursor: pointer;
-      }
-
-      .thumbnail img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-
-      .progress {
-        width: 100%;
-        background-color: #e0e0e0;
-        border-radius: 13px;
-        padding: 3px;
-        margin-top: 10px;
-      }
-
-      .progress-bar {
-        width: 0;
-        height: 30px;
-        background-color: #76c7c0;
-        border-radius: 10px;
-        text-align: center;
-        line-height: 30px;
-        color: white;
-        transition: width 0.5s;
-      }
-
-      .toast {
-        visibility: hidden;
-        min-width: 250px;
-        margin-left: -125px;
-        background-color: #333;
-        color: #fff;
-        text-align: center;
-        border-radius: 2px;
-        position: fixed;
-        z-index: 1;
-        left: 50%;
-        bottom: 30px;
-        font-size: 17px;
-      }
-
-      .toast #desc {
-        color: #fff;
-        padding: 16px;
-        font-size: 17px;
-      }
-
-      .toast.show {
-        visibility: visible;
-        -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-        animation: fadein 0.5s, fadeout 0.5s 2.5s;
-      }
-
-      @-webkit-keyframes fadein {
-        from {
-          bottom: 0;
-          opacity: 0;
-        }
-        to {
-          bottom: 30px;
-          opacity: 1;
-        }
-      }
-
-      @keyframes fadein {
-        from {
-          bottom: 0;
-          opacity: 0;
-        }
-        to {
-          bottom: 30px;
-          opacity: 1;
-        }
-      }
-
-      @-webkit-keyframes fadeout {
-        from {
-          bottom: 30px;
-          opacity: 1;
-        }
-        to {
-          bottom: 0;
-          opacity: 0;
-        }
-      }
-
-      @keyframes fadeout {
-        from {
-          bottom: 30px;
-          opacity: 1;
-        }
-        to {
-          bottom: 0;
-          opacity: 0;
-        }
-      }
-    </style>
+    <link rel="stylesheet" href="css/upload.css" />
   </head>
   <body>
-    <div class="container">
-      <div class="thumbnails">
-        <div class="thumbnail" onclick="selectThumbnail(0)">
-          <img src="png/green.jpg" alt="Thumbnail 1" />
+    <div id="body2">
+      <div class="container">
+        <div class="thumbnails">
+          <div class="thumbnail" onclick="selectThumbnail(0)">
+            <img src="png/green.jpg" alt="Thumbnail 1" />
+          </div>
+          <div class="thumbnail" onclick="selectThumbnail(1)">
+            <img src="png/yellow.jpg" alt="Thumbnail 2" />
+          </div>
+          <div class="thumbnail" onclick="selectThumbnail(2)">
+            <img src="png/red.jpg" alt="Thumbnail 3" />
+          </div>
+          <div class="thumbnail" onclick="selectThumbnail(3)">
+            <img src="png/skyblue.jpg" alt="Thumbnail 4" />
+          </div>
+          <div class="thumbnail" onclick="selectThumbnail(4)">
+            <img src="png/gym.jpg" alt="Thumbnail 5" />
+          </div>
         </div>
-        <div class="thumbnail" onclick="selectThumbnail(1)">
-          <img src="png/yellow.jpg" alt="Thumbnail 2" />
-        </div>
-        <div class="thumbnail" onclick="selectThumbnail(2)">
-          <img src="png/red.jpg" alt="Thumbnail 3" />
-        </div>
-        <div class="thumbnail" onclick="selectThumbnail(3)">
-          <img src="png/skyblue.jpg" alt="Thumbnail 4" />
-        </div>
-        <div class="thumbnail" onclick="selectThumbnail(4)">
-          <img src="png/gym.jpg" alt="Thumbnail 5" />
+        <div id="upload-wrap">
+          <h1 id="upload-title">일치율을 확인해봐요.</h1>
+          <div id="image-chose">
+            <main>
+              <div class="addImage" id="image-show-thumbnail"></div>
+              <p id="upload-p">왼쪽에서 원하는 장소를 선택해 주세요!</p>
+            </main>
+            <main>
+              <div class="uploadImage" id="image-show-upload"></div>
+              <input type="file" accept="image/*" onchange="loadAndPredict(this)" id="upload-input" />
+            </main>
+          </div>
+          <div class="progress">
+            <div id="progress-bar" class="progress-bar">0%</div>
+          </div>
+          <div id="upload-back">
+            <a href="main.html"><div>돌아가기</div></a>
+          </div>
         </div>
       </div>
-      <div class="addImage" id="image-show-thumbnail"><!-- 썸네일 선택 이미지를 띄울 공간 --></div>
-      <div class="uploadImage" id="image-show-upload"><!-- 업로드된 이미지를 띄울 공간 --></div>
     </div>
-    <input type="file" accept="image/*" onchange="loadAndPredict(this)" />
-    <div>Teachable Machine Image Model</div>
     <div id="label-container"></div>
-    <div class="progress">
-      <div id="progress-bar" class="progress-bar">0%</div>
-    </div>
     <div id="toast" class="toast"><div id="desc"></div></div>
-    <script type="text/javascript" src="javascript/script.js" defer></script>
+    <script type="text/javascript" src="javascript/upload.js" defer></script>
   </body>
 </html>
