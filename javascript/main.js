@@ -90,3 +90,10 @@ function doDisplay() {
     con.style.display = 'none';
   }
 }
+
+
+// 회원가입 모달창
+function modalOpen(){
+  const modal = document.getElementById('modal1');
+  modal.style.display = "flex";
+};
