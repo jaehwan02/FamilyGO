@@ -68,8 +68,7 @@ async function predict(img) {
   const predictions = await model.predict(img);
   const classIndex = classIndices[selectedIndex]; // 선택된 썸네일에 대한 클래스 인덱스
   const probability = (predictions[classIndex].probability * 100).toFixed(2);
-  updateProgressBar(probability);
-  showToastMessage(probability);
+  updateProgressBar(probability, () => showToastMessage(probability));
 
   if (probability >= 80) {
     // 일치율이 80% 이상일 경우 점수 추가
@@ -77,7 +76,7 @@ async function predict(img) {
   }
 }
 
-function updateProgressBar(targetPercentage) {
+function updateProgressBar(targetPercentage, callback) {
   const progressBar = document.getElementById('progress-bar');
   const currentPercentage = parseFloat(progressBar.style.width) || 0;
   const increment = (targetPercentage - currentPercentage) / 100; // 백분율 증가량
@@ -92,6 +91,7 @@ function updateProgressBar(targetPercentage) {
       clearInterval(interval);
       progressBar.style.width = targetPercentage + '%';
       progressBar.innerText = targetPercentage + '%';
+      callback(); // 목표 백분율에 도달했을 때 콜백 함수 호출
     }
 
     if (current < 50) {
