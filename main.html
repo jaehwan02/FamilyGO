@@ -126,6 +126,12 @@
             const password = document.getElementById('password').value;
             const checkPassword = document.getElementById('checkPassword').value;
 
+            if(password !== checkPassword) {
+              alert("비밀번호가 일치하지 않습니다");
+            }
+           
+
+
             fetch('/submit', {
                 method: 'POST',
                 headers: {
@@ -148,6 +154,8 @@
             })
             .catch(error => console.error('Error:', error));
         });
+      
+
     </script>
 </body>
 

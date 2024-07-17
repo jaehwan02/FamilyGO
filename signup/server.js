@@ -23,18 +23,21 @@ const hostname = '127.0.0.1';
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+
+app.use(express.static(path.join(__dirname, '../')));
+
 // Firebase 초기화
 initializeApp(firebaseConfig);
 
 app.get('/', (req, res) => {
-    path.join(__dirname, '../main.html')
+    res.sendFile(path.join(__dirname, '../', 'main.html'));
 });
 
 app.post('/submit', (req, res) => {
     const { nickname, id, password, checkPassword } = req.body;
 
-    const db = getDatabase();
     if(password===checkPassword) {
+        const db = getDatabase();
         set(ref(db, `users/${id}/`), {
             nickname: nickname,
             id: id,
