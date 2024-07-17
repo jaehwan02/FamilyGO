@@ -77,19 +77,32 @@ async function predict(img) {
   }
 }
 
-function updateProgressBar(percentage) {
+function updateProgressBar(targetPercentage) {
   const progressBar = document.getElementById('progress-bar');
-  progressBar.style.width = percentage + '%';
-  progressBar.innerText = percentage + '%';
+  const currentPercentage = parseFloat(progressBar.style.width) || 0;
+  const increment = (targetPercentage - currentPercentage) / 100; // 백분율 증가량
 
-  if (percentage < 50) {
-    progressBar.style.backgroundColor = 'red';
-  } else if (percentage < 80) {
-    progressBar.style.backgroundColor = 'yellow';
-    progressBar.style.color = 'black'; // 글씨가 잘 보이도록
-  } else {
-    progressBar.style.backgroundColor = 'green';
-  }
+  let current = currentPercentage;
+  const interval = setInterval(() => {
+    current += increment;
+    progressBar.style.width = current + '%';
+    progressBar.innerText = Math.round(current) + '%';
+
+    if (current >= targetPercentage) {
+      clearInterval(interval);
+      progressBar.style.width = targetPercentage + '%';
+      progressBar.innerText = targetPercentage + '%';
+    }
+
+    if (current < 50) {
+      progressBar.style.backgroundColor = 'red';
+    } else if (current < 80) {
+      progressBar.style.backgroundColor = 'yellow';
+      progressBar.style.color = 'black'; // 글씨가 잘 보이도록
+    } else {
+      progressBar.style.backgroundColor = 'green';
+    }
+  }, 20); // 20ms마다 업데이트
 }
 
 function showToastMessage(percentage) {
