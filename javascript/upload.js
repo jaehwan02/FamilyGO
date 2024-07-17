@@ -115,5 +115,5 @@ function updateScore(points) {
   let score = parseInt(localStorage.getItem('score')) || 0;
   score += points;
   localStorage.setItem('score', score);
-  parent.document.getElementById('real-coin').innerText = score;
+  parent.document.querySelectorAll('.real-coin').forEach((el) => (el.innerText = score));
 }

@@ -4,118 +4,8 @@
     <meta charset="utf-8" />
     <title>Kakao 지도 시작하기</title>
     <link rel="stylesheet" href="css/main.css" />
-    <script>
-      // 초기 로드 시 점수를 로컬 스토리지에서 불러오기
-      document.addEventListener('DOMContentLoaded', () => {
-        let score = localStorage.getItem('score') || 0;
-        document.getElementById('real-coin').innerText = score;
-
-        // 이전 점수를 가져와 비교
-        let previousScore = localStorage.getItem('previousScore') || 0;
-        let gainedPoints = score - previousScore;
-
-        // 이전 점수를 현재 점수로 업데이트
-        localStorage.setItem('previousScore', score);
-
-        // 점수가 증가했을 경우 토스트 메시지로 알림
-        if (gainedPoints > 0) {
-          showToastMessage(`축하합니다! ${gainedPoints}점을 얻었습니다.`);
-        }
-      });
-
-      // 점수 업데이트 함수
-      function updateScore(points) {
-        let score = parseInt(localStorage.getItem('score')) || 0;
-        score += points;
-        localStorage.setItem('score', score);
-        document.getElementById('real-coin').innerText = score;
-      }
-
-      // 전역 함수로 업데이트 함수 설정
-      window.updateScore = updateScore;
-
-      // 토스트 메시지 함수
-      function showToastMessage(message) {
-        const toast = document.createElement('div');
-        toast.className = 'toast';
-        toast.innerText = message;
-        document.body.appendChild(toast);
-        setTimeout(() => {
-          toast.className += ' show';
-        }, 100);
-        setTimeout(() => {
-          toast.className = toast.className.replace('show', '');
-          document.body.removeChild(toast);
-        }, 3000);
-      }
-    </script>
-    <style>
-      .toast {
-        visibility: hidden;
-        min-width: 250px;
-        margin-left: -125px;
-        background-color: #333;
-        color: #fff;
-        text-align: center;
-        border-radius: 2px;
-        position: fixed;
-        z-index: 1;
-        left: 50%;
-        bottom: 30px;
-        font-size: 17px;
-        padding: 10px;
-      }
-
-      .toast.show {
-        visibility: visible;
-        -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-        animation: fadein 0.5s, fadeout 0.5s 2.5s;
-      }
-
-      @-webkit-keyframes fadein {
-        from {
-          bottom: 0;
-          opacity: 0;
-        }
-        to {
-          bottom: 30px;
-          opacity: 1;
-        }
-      }
-
-      @keyframes fadein {
-        from {
-          bottom: 0;
-          opacity: 0;
-        }
-        to {
-          bottom: 30px;
-          opacity: 1;
-        }
-      }
-
-      @-webkit-keyframes fadeout {
-        from {
-          bottom: 30px;
-          opacity: 1;
-        }
-        to {
-          bottom: 0;
-          opacity: 0;
-        }
-      }
-
-      @keyframes fadeout {
-        from {
-          bottom: 30px;
-          opacity: 1;
-        }
-        to {
-          bottom: 0;
-          opacity: 0;
-        }
-      }
-    </style>
+    <link rel="stylesheet" href="css/main2.css" />
+    <script src="javascript/main2.js"></script>
   </head>
   <body>
     <header>
@@ -129,11 +19,12 @@
         </div>
         <div id="coin">
           <img src="svg/coin.svg" alt="" id="coin-image" />
-          <div id="real-coin">0</div>
+          <div class="real-coin">0</div>
         </div>
         <div id="login">
           <div>로그인</div>
           <div>회원가입</div>
+          <div>가족 구성원 추가</div>
         </div>
         <div id="hamburgur">
           <a href="javascript:doDisplay();"><img src="svg/hamburgur.svg" alt="" /></a>
@@ -150,62 +41,36 @@
       <div>
         <p>1위</p>
         <p>홍길동</p>
-        <p>점수</p>
+        <p>16000</p>
       </div>
       <div>
         <p>2위</p>
         <p>홍길동</p>
-        <p>점수</p>
+        <p>15000</p>
       </div>
       <div>
         <p>3위</p>
         <p>홍길동</p>
-        <p>점수</p>
+        <p>12000</p>
       </div>
       <div>
         <p>4위</p>
         <p>홍길동</p>
-        <p>점수</p>
+        <p>11000</p>
       </div>
       <div>
         <p>5위</p>
         <p>홍길동</p>
-        <p>점수</p>
-      </div>
-      <div>
-        <p>6위</p>
-        <p>홍길동</p>
-        <p>점수</p>
-      </div>
-      <div>
-        <p>7위</p>
-        <p>홍길동</p>
-        <p>점수</p>
-      </div>
-      <div>
-        <p>8위</p>
-        <p>홍길동</p>
-        <p>점수</p>
-      </div>
-      <div>
-        <p>9위</p>
-        <p>홍길동</p>
-        <p>점수</p>
-      </div>
-      <div>
-        <p>10위</p>
-        <p>홍길동</p>
-        <p>점수</p>
+        <p>10000</p>
       </div>
       <div id="myrank">
         <p>99위</p>
         <p>이재환</p>
-        <p>점수</p>
+        <p class="real-coin">0</p>
       </div>
     </div>
 
     <div id="map"></div>
-    <iframe src="upload.html" style="width: 100%; height: 100vh; border: none"></iframe>
 
     <script
       type="text/javascript"

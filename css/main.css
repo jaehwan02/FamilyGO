@@ -79,7 +79,7 @@ header > div {
 
 #login {
   display: flex;
-  width: 160px;
+  width: 300px;
   justify-content: space-between;
 }
 
@@ -103,12 +103,23 @@ header > div {
   background: #6b6bd2;
 }
 
+#login :nth-child(3) {
+  display: flex;
+  padding: 9px 13px;
+  justify-content: center;
+  align-items: center;
+  gap: 9.028px;
+  border-radius: 4.514px;
+  background: #6b6bd2;
+}
+
 #myDIV {
   position: absolute;
   top: 100px;
   right: 40px;
   z-index: 2;
   background-color: white;
+  border-radius: 10px;
 }
 
 #myDIV div {
@@ -124,6 +135,14 @@ header > div {
 #myrank {
   color: white;
   background-color: #6b6bd2;
+}
+
+#rankcoluum {
+  border-radius: 10px 10px 0 0;
+}
+
+#myrank {
+  border-radius: 0 0 10px 10px;
 }
 
 .custom-marker {
