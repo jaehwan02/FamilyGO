@@ -1,100 +1,97 @@
-// More API functions here:
-// https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
+let selectedIndex = -1; // 선택된 썸네일의 인덱스
+let model, labelContainer, maxPredictions;
+const MODEL_URL = './my_model/';
+const imglist = [];
+const classIndices = [0, 2, 3, 4, 5]; // 각 썸네일에 대한 클래스 인덱스
 
-// the link to your model provided by Teachable Machine export panel
-const URL = './my_model/';
-
-let model, image, labelContainer, maxPredictions;
-let imglist = [];
-
-let flag = 1;
-
-// Load the image model and setup the webcam
 async function init() {
-  const modelURL = URL + 'model.json';
-  const metadataURL = URL + 'metadata.json';
+  const modelURL = MODEL_URL + 'model.json';
+  const metadataURL = MODEL_URL + 'metadata.json';
 
-  // load the model and metadata
   model = await tmImage.load(modelURL, metadataURL);
   maxPredictions = model.getTotalClasses();
-  console.log(model);
+
   labelContainer = document.getElementById('label-container');
-  if (flag == 1) {
-    for (let i = 0; i < maxPredictions; i++) {
-      // and class labels
-      labelContainer.appendChild(document.createElement('div'));
-    }
-  }
-}
-
-async function filePredict(files) {
-  await init();
-  imglist = [];
-  for (i of files) {
-    const aa = await createImageBitmap(i);
-    imglist.push(aa);
-  }
-
-  for (i of imglist) {
-    const a = await model.predict(i);
-    document.getElementById('percent').innerHTML = a[0].probability;
-    console.log(a);
-  }
-}
-
-// run the webcam image through the image model
-async function predict() {
-  var image = document.querySelector('li img');
-  // predict can take in an image, video or canvas html element
-  const prediction = await model.predict(image, false);
   for (let i = 0; i < maxPredictions; i++) {
-    const classPrediction = prediction[i].className + ': ' + prediction[i].probability.toFixed(2);
-    labelContainer.childNodes[i].innerHTML = classPrediction;
+    labelContainer.appendChild(document.createElement('div'));
   }
 }
-function getImageFiles(e) {
-  const uploadFiles = [];
-  const files = e.currentTarget.files;
-  const imagePreview = document.querySelector('.image-preview');
-  const docFrag = new DocumentFragment();
 
-  if ([...files].length >= 7) {
-    alert('이미지는 최대 6개 까지 업로드가 가능합니다.');
-    return;
+async function loadAndPredict(input) {
+  await init();
+  const files = input.files;
+  imglist.length = 0; // 초기화
+
+  for (let file of files) {
+    const img = await createImageBitmap(file);
+    imglist.push(img);
   }
-  // 파일 타입 검사
-  [...files].forEach((file) => {
-    if (!file.type.match('image/.*')) {
-      alert('이미지 파일만 업로드가 가능합니다.');
-      return;
-    }
 
-    // 파일 갯수 검사
-    if ([...files].length < 7) {
-      uploadFiles.push(file);
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const preview = createElement(e, file);
-        imagePreview.appendChild(preview);
-      };
-      reader.readAsDataURL(file);
-    }
-  });
+  displayUploadedImage(input.files[0]);
+
+  if (selectedIndex >= 0) {
+    await predict(imglist[0]); // 파일 업로드 후 첫 번째 이미지를 예측
+  }
 }
 
-function createElement(e, file) {
-  const li = document.createElement('li');
-  const img = document.createElement('img');
-  img.setAttribute('src', e.target.result);
-  img.setAttribute('data-file', file.name);
-  li.appendChild(img);
-
-  return li;
+function displayUploadedImage(file) {
+  let newImage = document.createElement('img');
+  newImage.src = URL.createObjectURL(file);
+  newImage.style.width = '100%';
+  newImage.style.height = '100%';
+  newImage.style.objectFit = 'cover';
+  let container = document.getElementById('image-show-upload');
+  container.innerHTML = '';
+  container.appendChild(newImage);
 }
 
-const realUpload = document.querySelector('.real-upload');
-const upload = document.querySelector('.upload');
+function selectThumbnail(index) {
+  selectedIndex = index;
+  displayThumbnailImage(index);
+  if (imglist.length > 0) {
+    predict(imglist[0]); // 썸네일 선택 시 첫 번째 업로드된 파일을 예측
+  }
+}
 
-upload.addEventListener('click', () => realUpload.click());
+function displayThumbnailImage(index) {
+  let container = document.getElementById('image-show-thumbnail');
+  container.innerHTML = '';
+  let newImage = document.createElement('img');
+  newImage.src = document.querySelectorAll('.thumbnail img')[index].src;
+  newImage.style.width = '100%';
+  newImage.style.height = '100%';
+  newImage.style.objectFit = 'cover';
+  container.appendChild(newImage);
+}
 
-realUpload.addEventListener('change', getImageFiles);
+async function predict(img) {
+  const predictions = await model.predict(img);
+  const classIndex = classIndices[selectedIndex]; // 선택된 썸네일에 대한 클래스 인덱스
+  const probability = (predictions[classIndex].probability * 100).toFixed(2);
+  updateProgressBar(probability);
+  showToastMessage(probability);
+}
+
+function updateProgressBar(percentage) {
+  const progressBar = document.getElementById('progress-bar');
+  progressBar.style.width = percentage + '%';
+  progressBar.innerText = percentage + '%';
+}
+
+function showToastMessage(percentage) {
+  const toast = document.getElementById('toast');
+  const desc = document.getElementById('desc');
+
+  if (percentage >= 80) {
+    toast.style.backgroundColor = 'green';
+    desc.innerText = '축하드립니다! 일치율이 80%를 넘었습니다.';
+  } else {
+    toast.style.backgroundColor = 'red';
+    desc.innerText = '아쉬워요 다시 한 번 찍어보는건 어때요?';
+  }
+
+  toast.className = 'toast show';
+  setTimeout(function () {
+    toast.className = toast.className.replace('show', '');
+  }, 3000);
+}
