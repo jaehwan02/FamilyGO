@@ -1,3 +1,5 @@
+const path = require('path');
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const { initializeApp } = require('firebase/app');
@@ -25,7 +27,7 @@ app.use(bodyParser.json());
 initializeApp(firebaseConfig);
 
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/../main.html');
+    path.join(__dirname, '../main.html')
 });
 
 app.post('/submit', (req, res) => {
