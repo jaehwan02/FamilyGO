@@ -97,11 +97,11 @@
   <div id="modal1">
     <div class="modal_body">
       <h1>모달창 제목</h1>
-      <form>
-        <input type="text" placeholder="ID" class="membership" required>
-        <input type="text" placeholder="PassWord" class="membership" required>
-        <input type="text" placeholder="CheckPassWord" class="membership" required>
-        <input type="text" placeholder="NickName" class="membership" required>
+      <form id="userForm">
+        <input type="text" placeholder="ID" class="membership" id="id" required>
+        <input type="text" placeholder="PassWord" class="membership" id="password" required>
+        <input type="text" placeholder="CheckPassWord" class="membership" id="checkPassword"required>
+        <input type="text" placeholder="NickName" class="membership" id="nickname" required>
         <div class="btndiv">
           <button type="submit" class="submitbtn">회원가입</button>
           <button class="canclebtn">취소</button>
@@ -117,6 +117,38 @@
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
   <script type="text/javascript" src="script.js" defer></script>
+   <script>
+        document.getElementById('userForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            
+            const nickname = document.getElementById('nickname').value;
+            const id = document.getElementById('id').value;
+            const password = document.getElementById('password').value;
+            const checkPassword = document.getElementById('checkPassword').value;
+
+            fetch('/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    nickname: nickname,
+                    id: id,
+                    password: password,
+                    checkPassword: checkPassword
+                })
+            })
+            .then(response => response.text())
+            .then(data => {
+                //alert(data);
+                document.getElementById('nickname').value = '';
+                document.getElementById('id').value = '';
+                document.getElementById('password').value = '';
+                document.getElementById('checkPassword').value = '';
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
 </body>
 
 </html>

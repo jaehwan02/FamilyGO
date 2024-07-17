@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const { initializeApp } = require('firebase/app');
-const { getDatabase, ref, set, onValue } = require('firebase/database');
+const { getDatabase, ref, set } = require('firebase/database');
 
 const firebaseConfig = {
     apiKey: "AIzaSyChO4p-YiYqvmb2Yf-V0b5G5RP5WRRmq8s",
@@ -25,23 +25,25 @@ app.use(bodyParser.json());
 initializeApp(firebaseConfig);
 
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html');
+    res.sendFile(__dirname + '/../main.html');
 });
 
 app.post('/submit', (req, res) => {
-    const { nickname, id, password } = req.body;
+    const { nickname, id, password, checkPassword } = req.body;
 
     const db = getDatabase();
-    set(ref(db, 'users/'), {
-        nickname: nickname,
-        id: id,
-        password: password,
-    }).then(() => {
-        res.send('등록 완료');
-    }).catch((error) => {
-        console.error('Error writing to database', error);
-        res.status(500).send('Internal Server Error');
-    });
+    if(password===checkPassword) {
+        set(ref(db, `users/${id}/`), {
+            nickname: nickname,
+            id: id,
+            password: password,
+        }).then(() => {
+            res.send('등록 완료');
+        }).catch((error) => {
+            console.error('Error writing to database', error);
+            res.status(500).send('Internal Server Error');
+        });
+    }
 });
 
 app.listen(port, hostname, () => {
