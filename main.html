@@ -9,6 +9,18 @@
       document.addEventListener('DOMContentLoaded', () => {
         let score = localStorage.getItem('score') || 0;
         document.getElementById('real-coin').innerText = score;
+
+        // 이전 점수를 가져와 비교
+        let previousScore = localStorage.getItem('previousScore') || 0;
+        let gainedPoints = score - previousScore;
+
+        // 이전 점수를 현재 점수로 업데이트
+        localStorage.setItem('previousScore', score);
+
+        // 점수가 증가했을 경우 토스트 메시지로 알림
+        if (gainedPoints > 0) {
+          showToastMessage(`축하합니다! ${gainedPoints}점을 얻었습니다.`);
+        }
       });
 
       // 점수 업데이트 함수
@@ -21,7 +33,89 @@
 
       // 전역 함수로 업데이트 함수 설정
       window.updateScore = updateScore;
+
+      // 토스트 메시지 함수
+      function showToastMessage(message) {
+        const toast = document.createElement('div');
+        toast.className = 'toast';
+        toast.innerText = message;
+        document.body.appendChild(toast);
+        setTimeout(() => {
+          toast.className += ' show';
+        }, 100);
+        setTimeout(() => {
+          toast.className = toast.className.replace('show', '');
+          document.body.removeChild(toast);
+        }, 3000);
+      }
     </script>
+    <style>
+      .toast {
+        visibility: hidden;
+        min-width: 250px;
+        margin-left: -125px;
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        border-radius: 2px;
+        position: fixed;
+        z-index: 1;
+        left: 50%;
+        bottom: 30px;
+        font-size: 17px;
+        padding: 10px;
+      }
+
+      .toast.show {
+        visibility: visible;
+        -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        animation: fadein 0.5s, fadeout 0.5s 2.5s;
+      }
+
+      @-webkit-keyframes fadein {
+        from {
+          bottom: 0;
+          opacity: 0;
+        }
+        to {
+          bottom: 30px;
+          opacity: 1;
+        }
+      }
+
+      @keyframes fadein {
+        from {
+          bottom: 0;
+          opacity: 0;
+        }
+        to {
+          bottom: 30px;
+          opacity: 1;
+        }
+      }
+
+      @-webkit-keyframes fadeout {
+        from {
+          bottom: 30px;
+          opacity: 1;
+        }
+        to {
+          bottom: 0;
+          opacity: 0;
+        }
+      }
+
+      @keyframes fadeout {
+        from {
+          bottom: 30px;
+          opacity: 1;
+        }
+        to {
+          bottom: 0;
+          opacity: 0;
+        }
+      }
+    </style>
   </head>
   <body>
     <header>
