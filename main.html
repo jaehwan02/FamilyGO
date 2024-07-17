@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
   <head>
     <meta charset="utf-8" />
     <title>Kakao 지도 시작하기</title>
     <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/main2.css" />
+    <script src="javascript/main2.js"></script>
   </head>
   <body>
     <header>
@@ -17,11 +19,12 @@
         </div>
         <div id="coin">
           <img src="svg/coin.svg" alt="" id="coin-image" />
-          <div>0</div>
+          <div class="real-coin">0</div>
         </div>
         <div id="login">
           <div>로그인</div>
           <div>회원가입</div>
+          <div>가족 구성원 추가</div>
         </div>
         <div id="hamburgur">
           <a href="javascript:doDisplay();"><img src="svg/hamburgur.svg" alt="" /></a>
@@ -38,69 +41,41 @@
       <div>
         <p>1위</p>
         <p>홍길동</p>
-        <p>점수</p>
+        <p>16000</p>
       </div>
       <div>
         <p>2위</p>
         <p>홍길동</p>
-        <p>점수</p>
+        <p>15000</p>
       </div>
       <div>
         <p>3위</p>
         <p>홍길동</p>
-        <p>점수</p>
+        <p>12000</p>
       </div>
       <div>
         <p>4위</p>
         <p>홍길동</p>
-        <p>점수</p>
+        <p>11000</p>
       </div>
       <div>
         <p>5위</p>
         <p>홍길동</p>
-        <p>점수</p>
-      </div>
-      <div>
-        <p>6위</p>
-        <p>홍길동</p>
-        <p>점수</p>
-      </div>
-      <div>
-        <p>7위</p>
-        <p>홍길동</p>
-        <p>점수</p>
-      </div>
-      <div>
-        <p>8위</p>
-        <p>홍길동</p>
-        <p>점수</p>
-      </div>
-      <div>
-        <p>9위</p>
-        <p>홍길동</p>
-        <p>점수</p>
-      </div>
-      <div>
-        <p>10위</p>
-        <p>홍길동</p>
-        <p>점수</p>
+        <p>10000</p>
       </div>
       <div id="myrank">
         <p>99위</p>
         <p>이재환</p>
-        <p>점수</p>
+        <p class="real-coin">0</p>
       </div>
     </div>
 
     <div id="map"></div>
+
     <script
       type="text/javascript"
       src="//dapi.kakao.com/v2/maps/sdk.js?appkey=28d2642540c8119428aa2b5b7b012024"
     ></script>
     <script src="javascript/main.js"></script>
-    <script type="text/javascript"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
-    <script type="text/javascript" src="script.js" defer></script>
   </body>
 </html>
