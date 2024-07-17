@@ -1,8 +1,10 @@
+/* 지도 영역의 스타일 */
 #map {
   width: 100vw;
-  height: 100vh;
+  height: 90vh;
 }
 
+/* 검색 바 스타일 */
 #search {
   display: inline-flex;
   padding-left: 18px;
@@ -13,13 +15,14 @@
   border-radius: 10px;
   border: 2px solid var(--Navy-Blue, #00007c);
   background: rgba(255, 255, 255, 0.7);
-  position: absolute; /* Added to position search bar over the map */
-  top: 10px; /* Adjust as needed */
+  position: absolute; /* 검색 바를 지도 위에 위치시키기 위해 추가 */
+  top: 10px; /* 필요에 따라 조정 */
   left: 50%;
   transform: translateX(-50%);
-  z-index: 3;
+  z-index: 10; /* 검색 바가 지도 위에 위치하도록 z-index 설정 */
 }
 
+/* 검색 입력 필드 스타일 */
 #search-input {
   color: rgba(0, 0, 0, 0.5);
   font-family: 'Pretendard Variable';
@@ -29,6 +32,7 @@
   line-height: normal;
 }
 
+/* 검색 버튼 스타일 */
 #search-button {
   display: flex;
   height: 40px;
