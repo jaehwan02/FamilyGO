@@ -34,7 +34,7 @@
   <div id="myDIV">
     <div id="rankcoluum">
       <p>순위</p>
-      <p>이름</p>
+      <p>가족명</p>
       <p>점수</p>
     </div>
     <div>
@@ -96,15 +96,15 @@
 
   <div id="modal1">
     <div class="modal_body">
-      <h1>모달창 제목</h1>
-      <form>
+      <h1>회원가입</h1>
+      <form id="myForm">
         <input type="text" placeholder="ID" class="membership" required>
         <input type="text" placeholder="PassWord" class="membership" required>
         <input type="text" placeholder="CheckPassWord" class="membership" required>
         <input type="text" placeholder="NickName" class="membership" required>
         <div class="btndiv">
           <button type="submit" class="submitbtn">회원가입</button>
-          <button class="canclebtn">취소</button>
+          <button id="canclebtn" onclick="cancle()">취소</button>
         </div>
       </form>
     </div>
@@ -117,6 +117,17 @@
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
   <script type="text/javascript" src="script.js" defer></script>
+  <script>
+    // 특정 조건 검사
+
+    function cancle() {
+      var x = document.getElementsByClassName("membership");
+      for (var i = 0; i < x.length; i++) {
+        x[i].removeAttribute('required');
+      }
+    }
+
+  </script>
 </body>
 
 </html>

@@ -179,7 +179,7 @@ header>div {
   line-height: normal;
 }
 
-.canclebtn {
+#canclebtn {
   display: inline-flex;
   padding: 14.957px 22.435px;
   justify-content: center;
@@ -196,7 +196,7 @@ header>div {
   line-height: normal;
   border: none;
 }
-.canclebtn:hover{
+#canclebtn:hover{
   background-color: #4a4a4a;
   cursor: pointer;
 }
