@@ -1,19 +1,57 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teachable Machine Image Comparison</title>
-    <link rel="stylesheet" href="css/upload.css">
-    </head>
-<body>
-    <div>Teachable Machine Image Model</div>
-    <input type="file" onchange="filePredict(this.files)" accept="image/"></input>
-    <div id="label-container"></div>
-    <div><p id="percent"></p></div>
-
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Image Upload and Prediction</title>
+    <link rel="stylesheet" href="css/upload.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
-    <script type="text/javascript" src="javascript/script.js" defer></script>
-</body>
+    <link rel="stylesheet" href="css/upload.css" />
+  </head>
+  <body>
+    <div id="body2">
+      <div class="container">
+        <div class="thumbnails">
+          <div class="thumbnail" onclick="selectThumbnail(0)">
+            <img src="png/green.jpg" alt="Thumbnail 1" />
+          </div>
+          <div class="thumbnail" onclick="selectThumbnail(1)">
+            <img src="png/yellow.jpg" alt="Thumbnail 2" />
+          </div>
+          <div class="thumbnail" onclick="selectThumbnail(2)">
+            <img src="png/red.jpg" alt="Thumbnail 3" />
+          </div>
+          <div class="thumbnail" onclick="selectThumbnail(3)">
+            <img src="png/skyblue.jpg" alt="Thumbnail 4" />
+          </div>
+          <div class="thumbnail" onclick="selectThumbnail(4)">
+            <img src="png/gym.jpg" alt="Thumbnail 5" />
+          </div>
+        </div>
+        <div id="upload-wrap">
+          <h1 id="upload-title">일치율을 확인해봐요.</h1>
+          <div id="image-chose">
+            <main>
+              <div class="addImage" id="image-show-thumbnail"></div>
+              <p id="upload-p">왼쪽에서 원하는 장소를 선택해 주세요!</p>
+            </main>
+            <main>
+              <div class="uploadImage" id="image-show-upload"></div>
+              <input type="file" accept="image/*" onchange="loadAndPredict(this)" id="upload-input" />
+            </main>
+          </div>
+          <div class="progress">
+            <div id="progress-bar" class="progress-bar">0%</div>
+          </div>
+          <div id="upload-back">
+            <a href="main.html"><div>돌아가기</div></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="label-container"></div>
+    <div id="toast" class="toast"><div id="desc"></div></div>
+    <script type="text/javascript" src="javascript/upload.js" defer></script>
+  </body>
 </html>
