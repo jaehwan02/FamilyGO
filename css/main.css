@@ -1,0 +1,41 @@
+#map {
+  width: 100vw;
+  height: 100vh;
+}
+
+#search {
+  display: inline-flex;
+  padding-left: 18px;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 151px;
+
+  border-radius: 10px;
+  border: 2px solid var(--Navy-Blue, #00007c);
+  background: rgba(255, 255, 255, 0.7);
+  position: absolute; /* Added to position search bar over the map */
+  top: 10px; /* Adjust as needed */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+}
+
+#search-input {
+  color: rgba(0, 0, 0, 0.5);
+  font-family: 'Pretendard Variable';
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+#search-button {
+  display: flex;
+  height: 40px;
+  padding: 10px;
+  align-items: center;
+
+  border-radius: 8px;
+  border: 2px solid var(--Navy-Blue, #00007c);
+  background: var(--Navy-Blue, #00007c);
+}

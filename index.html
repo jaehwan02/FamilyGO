@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="utf-8"/>
-	<title>Kakao 지도 시작하기</title>
-</head>
-<body>
-	<div id="map" style="width:500px;height:400px;"></div>
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=28d2642540c8119428aa2b5b7b012024"></script>
-	<script>
-		var container = document.getElementById('map');
-		var options = {
-			center: new kakao.maps.LatLng(35.189,128.9034),
-			level: 3
-		};
+  <head>
+    <meta charset="utf-8" />
+    <title>Kakao 지도 시작하기</title>
+    <link rel="stylesheet" href="css/main.css" />
+  </head>
+  <body>
+    <header>
+      <div id="search">
+        <input type="text" id="search-input" placeholder="검색어를 입력하세요." />
+        <button id="search-button"><img src="svg/search.svg" alt="검색 버튼" /></button>
+      </div>
+    </header>
 
-		var map = new kakao.maps.Map(container, options);
-	</script>
-</body>
+    <div id="map"></div>
+    <script
+      type="text/javascript"
+      src="//dapi.kakao.com/v2/maps/sdk.js?appkey=28d2642540c8119428aa2b5b7b012024"
+    ></script>
+    <script src="javascript/main.js"></script>
+  </body>
 </html>
